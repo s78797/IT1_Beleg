@@ -1,41 +1,59 @@
+:root{
+	--main-col:"grey";
+}
+.sidebar {
+  height: 500px;
+  width: 150px;
+  margin:0.25em;
+  background-color: saddlebrown;
+  float: left;
+}
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+header,footer{
+  
+	background-color: aquamarine;
+	margin-top: 0.25em;
+}
+body{
+	background-color:grey;
+}
 .navbar{
+	background-color: aqua;
+}
+.topics{
+  margin-top: 0.25em;
+}
+.content {
+	border:1px solid #000;
+  margin-top: 0.25em;
+	margin-left: 160px;
+	background-color: antiquewhite;
+	position:auto;
+}
+.answerpanel{
+  height: 500px;
 
-background-color: antiquewhite;
 
 }
-
-
-.sidebar {
-    margin: 0;
-    padding: 0;
-    width: 100px;
-    background-color: saddlebrown;
-    position: fixed;
-    height: 100%;
-    overflow: auto;
-  }
- 
-  .sidebar a {
-    display: block;
-    color: black;
-    padding: 16px;
-    text-decoration: none;
-  }
-
-  /* On screens that are less than 700px wide, make the sidebar into a topbar */
-  @media screen and (max-width: 700px) {
-    .sidebar {
-      width: 100%;
-      height: auto;
-      position: relative;
-    }
-    .sidebar a {float: left;}
-    div.content {margin-left: 0;}
-  }
-
-  header,.content,.navbar,.sidebar,footer{
-    margin:0.25em;
-    padding: 0.25em;
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+@media screen and (max-width: 700px) {
+	.sidebar {
+		width: 99%;
+		height: 3em;
+    position: relative;
     
+	}
+	.sidebar a {
+		float: left;
+	}
+	div.content {
+    margin-left: 0;
+    width: 100%;
+	}
 
-  }
+}
