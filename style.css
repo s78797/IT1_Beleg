@@ -1,134 +1,210 @@
-:root{
-	--main-col:"grey";
-}
-.sidebar {
-  height: 100%;
-  width: 150px;
-  
-  background-color: #004d40;
-  float: left;
-}
-.sidebar a {
-  display: block;
-  color: black;
-  padding: 20px;
-  
+:root {
+	--main-col: "grey";
+	width: 100%;
 }
 
-.answerpanel{
-	background-color: antiquewhite;
+html,
+body {
 	height: 100%;
-	width: 80%;
+}
 
+.sidebar {
+	height: 100%;
+	width: 150px;
+	background-color: #004d40;
+	float: left;
+	border: 1px solid #000;
+}
+
+.sidebar a {
+	display: block;
+	color: black;
+	padding: 10px;
+}
+
+.sidebar a:hover {
+	border: 1px;
+	background-color: #00897b;
+}
+
+fieldset {
+	border: 1px solid #000;
+	background-color: #004d40;
+}
+
+#task {
+	margin: auto;
+	width: 100%;
+	text-align: center;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+.answerpanel {
+	margin: auto;
+	height: 5em;
+	width: 80%;
+	padding: 10px;
+}
+
+#Antwort0,
+#Antwort1,
+#Antwort2,
+#Antwort3 {
+	width: 50%;
+	height: 50%;
+	background-color: #004d40;
 }
 
 progress[value] {
 	-webkit-appearance: none;
-	appearance: none;	
-  }
-.wrong_bar::-webkit-progress-value { background: red; }
-.correct_bar::-webkit-progress-value { background:green; }
-
-
-.sidebar a:hover{
-	border: 1px;
-	background-color: #00897b;
+	appearance: none;
+	width: 100%;
 }
-header,footer{
-  
-	background-color: #00695c ;
+
+#progressbars {
+	width: 80%;
+	margin: 0.5em auto;
+	height: 50px;
+}
+
+.bar1 {
+	float: left;
+	width: 45%;
+	margin: 0.25em;
+}
+
+.bar2 {
+	float: right;
+	width: 45%;
+	margin: 0.25em;
+}
+
+.wrong_bar::-webkit-progress-bar,
+.correct_bar::-webkit-progress-bar {
+	background-color: #b2dfdb;
+}
+
+.wrong_bar::-webkit-progress-value {
+	background: #d50000;
+}
+
+.correct_bar::-webkit-progress-value {
+	background: #1b5e20;
+}
+
+.taskintro {
+	margin-left: 1em;
+}
+
+header,
+footer {
+	width: 100%;
+	height: 25px;
+	background-color: #00695c;
 	margin-top: 0.25em;
-}
-body{
-	background-color:grey;
-}
-.navbar{
-	background-color:#00796b ;
+	margin-bottom: 0.25em;
+	top: 0;
+	border: 1px solid #000;
 }
 
-ul{
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
+body {
+	background-color: grey;
 }
 
-.topics{
-  margin-top: 0.25em;
+.topics {
+	margin-top: 0.25em;
+	text-align: center;
 }
+
 .content {
-	border:1px solid #000;
-  margin-top: 0.25em;
+	border: 1px solid #000;
+	margin-top: 0.25em;
 	margin-left: 160px;
-	background-color:#009688;
-	position:auto;
+	height: 100%;
+	background-color: #009688;
+	position: auto;
 }
-.answerpanel{
-  height: 500px;
-
-
-}
-
 
 .modal {
-	display: none; 
+	background-color: rgb(0, 0, 0);
+	/* Fallback*/
+	background-color: rgba(0, 0, 0, 0.4);
+	z-index: 1;
+	/*lay over everything*/
+	display: none;
 	position: fixed;
-	z-index: 1; /*lay over everything*/
 	padding-top: 100px;
 	left: 0;
 	top: 0;
-	width: 100%; 
-	height: 100%; 
-	
-	background-color: rgb(0,0,0); /* Fallback color */
-	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
-  
-  /* Modal Content */
-  .modal_content {
-	background-color: #fefefe;
-	margin: auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
-  }
-  
-  /* The Close Button */
-  .close {
-	color: #aaaaaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-  }
-
-/* On screens that are less than 700px wide, make the sidebar into a topbar */
-@media screen and (max-width: 700px) {
-	.sidebar {
-	width: 99%;
-	height: 3em;
-   	 position: relative;
-    
-	}
-	.sidebar a {
-		float: left;
-	}
-
-	.topics{
-		margin-top: 3em;
-
-	}
-	div.content {
-	margin-top: 1em;
-    margin-left: 0;
-    width: 100%;
-	}
-
+	width: 100%;
+	height: 100%;
 }
 
 
+/* Modal Content */
+
+.modal_content {
+	background-color: #80cbc4;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid black;
+	width: 80%;
+}
+
+.modaltext {
+	text-align: center;
+}
+
+
+/* The Close Button */
+
+.close {
+	color: #000;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover {
+	color: #d50000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+
+@media screen and (max-width: 700px) {
+	.sidebar {
+		width: 100%;
+		height: 40px;
+		position: relative;
+	}
+	.sidebar a {
+		float: left;
+		height: 20px;
+		/*-20px for padding*/
+	}
+	.content {
+		margin-top: 3.5em;
+		margin-left: 0;
+		width: 100%;
+	}
+	#Antwort0,
+	#Antwort1,
+	#Antwort2,
+	#Antwort3 {
+		width: 100%;
+		height: 50%;
+		background-color: #004d40;
+	}
+	.bar1 {
+		float: none;
+		width: 100%;
+	}
+	.bar2 {
+		float: none;
+		width: 100%;
+	}
+}

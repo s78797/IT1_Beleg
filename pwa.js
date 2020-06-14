@@ -78,16 +78,32 @@ class Presenter {
     button.setAttribute('type', 'radio');
     button.setAttribute('id', i);
     button.setAttribute('name', 'radiogroup');
-    button.setAttribute('class', 'topic')
+    button.setAttribute('class', 'topic');
     if (button.id == 2) {
       button.checked = true;
     }
     button.value = i;
     /*Set Label for Button*/
-    var label = document.createElement('label')
+    var label = document.createElement('label');
     label.htmlFor = this.topics[i];
 
-    var description = document.createTextNode(this.topics[i]);
+
+
+    switch (this.topics[i]) {
+      case "note":
+        var description = document.createTextNode("Noten");
+        break;
+      case "akkord3":
+        var description = document.createTextNode("Akkorde");
+        break;
+      case "teil-mathe":
+        var description = document.createTextNode("Mathematik");
+        break;
+      case "teil-allgemein":
+        var description = document.createTextNode("Allgemeinwissen");
+        break;
+    }
+
     label.appendChild(description);
 
     var buttonselector = document.getElementById('selector');
@@ -100,16 +116,15 @@ class Presenter {
     let solutionset = this.randomizeAnswers(current.l);
     for (var i = 0; i < solutionset.length; i++) {
       let button = document.createElement('button');
-      
+
       button.setAttribute('value', solutionset[i])
       button.setAttribute('id', 'Antwort' + i);
-      button.style.width="150px";
-      button.style.height="100px";
-      if(this.currTopicLabel=="teil-mathe"){
-        this.renderMathQuestion(solutionset[i],button)
-        }
-      else{
-        button.innerHTML=solutionset[i]
+
+      if (this.currTopicLabel == "teil-mathe") {
+        this.renderMathQuestion(solutionset[i], button)
+      }
+      else {
+        button.innerHTML = solutionset[i];
       }
 
       var answerpanel = document.getElementById('answerpanel');
@@ -136,17 +151,18 @@ class Presenter {
 
   updateTopic(nr) {
     m.getdata()
-    .then(() => {
-      this.recdata = data})
+      .then(() => {
+        this.recdata = data
+      })
     this.currTopicData = this.recdata[Object.keys(this.recdata)[nr]];
-    
-    this.currTopicLabel =Object.keys(this.recdata)[nr];
+
+    this.currTopicLabel = Object.keys(this.recdata)[nr];
     console.log(this.currTopicLabel);
     this.initSolvedKey(this.currTopicData);
-   
+
     this.initProgressbars();
     this.currQuestion = this.getRandomTask();
-    
+
     this.updateQuestion(this.currQuestion);
 
   }
@@ -154,10 +170,10 @@ class Presenter {
   getRandomTask() {
     let index;
     let qcount = this.currTopicData.length;
-    
+
     while (true) {
       let leftquestions = this.currTopicData.filter(data => data.solved).length;
-      console.log("Bearbeitet: " + leftquestions+' von '+qcount);
+      console.log("Bearbeitet: " + leftquestions + ' von ' + qcount);
 
       if (leftquestions == qcount) {  //last task solved
         v.openModal();
@@ -167,9 +183,9 @@ class Presenter {
       var item = this.currTopicData[index];
       if (item.solved == false) {
         this.currTopicData[index].solved = true;
-       
-        this.currRightAnswer=item.l[0];
-        console.log(this.currRightAnswer)
+
+        this.currRightAnswer = item.l[0];
+        console.log(this.currRightAnswer);
         return item;
       }
     }
@@ -177,22 +193,22 @@ class Presenter {
 
   getNextTask() {
     this.currQuestion = this.getRandomTask();
-    
+
     if (typeof this.currQuestion !== 'undefined') {//prevent from updating question if no questionns left
-      
+
       this.updateQuestion(this.currQuestion);
     }
   }
 
   updateQuestion(currentTask) {
     let questionDOM = document.getElementById("task");
-    if(this.currTopicLabel=="teil-mathe"){
-      this.renderMathQuestion(this.currQuestion.a,questionDOM);
+    if (this.currTopicLabel == "teil-mathe") {
+      this.renderMathQuestion(this.currQuestion.a, questionDOM);
     }
-    else{
-      questionDOM.innerText = currentTask.a;
+    else {
+      questionDOM.innerHTML = currentTask.a;
     }
-    
+
     if (document.getElementById('Antwort0') === null) {
       this.initAnswerButtons(currentTask);
     } else
@@ -200,26 +216,23 @@ class Presenter {
 
   }
   updateAnswerButtons(currentTask) {
-
-    let solutionset=currentTask;
+    let solutionset = currentTask;
     solutionset = this.randomizeAnswers(solutionset.l);
-    console.log(solutionset)
     for (let i = 0; i < solutionset.length; i++) {
       let button = document.getElementById('Antwort' + i);
       button.setAttribute('type', 'button');
       button.setAttribute('value', solutionset[i]);
-     
-      if(this.currTopicLabel=="teil-mathe"){
-      this.renderMathQuestion(solutionset[i],button)
+
+      if (this.currTopicLabel == "teil-mathe") {
+        this.renderMathQuestion(solutionset[i], button)
       }
-      else{ button.innerHTML=solutionset[i]}
+      else { button.innerHTML = solutionset[i] }
       button.style.backgroundColor = ""
     }
   }
 
   randomizeAnswers(currentSolutionSet) {
-  //  this.currRightAnswer = currentSolutionSet[0];
-    console.log(this.currRightAnswer)
+    
     for (let i = currentSolutionSet.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
       let temp = currentSolutionSet[i];
@@ -229,9 +242,9 @@ class Presenter {
     return currentSolutionSet;
   }
 
-  renderMathQuestion(element,location) {
-    
-    katex.render(element,location, {
+  renderMathQuestion(element, location) {
+
+    katex.render(element, location, {
       throwOnError: false
     });
   }
@@ -251,14 +264,13 @@ class Presenter {
       return false
     }
   }
-  evaluateResults(bool){
+  evaluateResults(bool) {
     let count;
-    if(bool===true){
-      count=document.getElementById("correct_bar").value;
-      console.log(count)
+    if (bool === true) {
+      count = document.getElementById("correct_bar").value;
     }
     else {
-    count= document.getElementById("wrong_bar").value
+      count = document.getElementById("wrong_bar").value
     }
     return count
   }
@@ -313,19 +325,19 @@ class View {
     var modal = document.getElementById("stat_modal");
     modal.style.display = "block";
     var span = document.getElementsByClassName("close")[0];
-    
-    let correct=p.evaluateResults(true);//get correct answers count
-    let wrong=p.evaluateResults(false);//get false answers count
+
+    let correct = p.evaluateResults(true);//get correct answers count
+    let wrong = p.evaluateResults(false);//get false answers count
 
     let modalcontent = document.getElementById("modal_text");
-    modalcontent.innerText = "Fragen richtig:"+correct+"\n Fragen falsch:"+wrong;
+    modalcontent.innerText = "Fragen richtig beantwortet: " + correct + "\n Fragen falsch beantwortet : " + wrong;
     span.onclick = function () {
-      
-      
+
+
       /* Reset Tasks when closed */
-      let buttons = document.getElementById("selector").querySelectorAll(".topic");  
-      for(let i=0;i<buttons.length;i++){
-        if(buttons[i].checked){
+      let buttons = document.getElementById("selector").querySelectorAll(".topic");
+      for (let i = 0; i < buttons.length; i++) {
+        if (buttons[i].checked) {
           p.updateTopic(buttons[i].value);
         }
       }
