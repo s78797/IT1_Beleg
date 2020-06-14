@@ -1,4 +1,4 @@
-###Lernprogramm
+###Lernprogramm###
 - Autor: Alexander Schoch
 - Studiengang: 18/042/01 Wirtschaftsinformatik
 - S-Nummer: s78797
