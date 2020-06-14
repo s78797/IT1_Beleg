@@ -2,7 +2,7 @@
 	--main-col:"grey";
 }
 .sidebar {
-  height: 500px;
+  height: 100%;
   width: 150px;
   
   background-color: #004d40;
@@ -14,6 +14,21 @@
   padding: 20px;
   
 }
+
+.answerpanel{
+	background-color: antiquewhite;
+	height: 100%;
+	width: 80%;
+
+}
+
+progress[value] {
+	-webkit-appearance: none;
+	appearance: none;	
+  }
+.wrong_bar::-webkit-progress-value { background: red; }
+.correct_bar::-webkit-progress-value { background:green; }
+
 
 .sidebar a:hover{
 	border: 1px;

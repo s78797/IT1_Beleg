@@ -24,8 +24,7 @@ class Model {
   getdata() {
     return this.fetchData().then(data => {
       this.data = data;
-
-      console.log(this.data);
+      return this.data;
     });
   }
 
@@ -80,11 +79,9 @@ class Presenter {
     button.setAttribute('id', i);
     button.setAttribute('name', 'radiogroup');
     button.setAttribute('class', 'topic')
-
     if (button.id == 2) {
       button.checked = true;
     }
-
     button.value = i;
     /*Set Label for Button*/
     var label = document.createElement('label')
@@ -106,6 +103,8 @@ class Presenter {
       
       button.setAttribute('value', solutionset[i])
       button.setAttribute('id', 'Antwort' + i);
+      button.style.width="150px";
+      button.style.height="100px";
       if(this.currTopicLabel=="teil-mathe"){
         this.renderMathQuestion(solutionset[i],button)
         }
@@ -136,13 +135,18 @@ class Presenter {
 
 
   updateTopic(nr) {
+    m.getdata()
+    .then(() => {
+      this.recdata = data})
     this.currTopicData = this.recdata[Object.keys(this.recdata)[nr]];
+    
     this.currTopicLabel =Object.keys(this.recdata)[nr];
     console.log(this.currTopicLabel);
     this.initSolvedKey(this.currTopicData);
    
     this.initProgressbars();
-    this.currQuestion = this.getRandomTask(this.currTopicData);
+    this.currQuestion = this.getRandomTask();
+    
     this.updateQuestion(this.currQuestion);
 
   }
@@ -150,7 +154,7 @@ class Presenter {
   getRandomTask() {
     let index;
     let qcount = this.currTopicData.length;
-    console.log(qcount)
+    
     while (true) {
       let leftquestions = this.currTopicData.filter(data => data.solved).length;
       console.log("Bearbeitet: " + leftquestions+' von '+qcount);
@@ -163,6 +167,9 @@ class Presenter {
       var item = this.currTopicData[index];
       if (item.solved == false) {
         this.currTopicData[index].solved = true;
+       
+        this.currRightAnswer=item.l[0];
+        console.log(this.currRightAnswer)
         return item;
       }
     }
@@ -170,7 +177,9 @@ class Presenter {
 
   getNextTask() {
     this.currQuestion = this.getRandomTask();
+    
     if (typeof this.currQuestion !== 'undefined') {//prevent from updating question if no questionns left
+      
       this.updateQuestion(this.currQuestion);
     }
   }
@@ -191,7 +200,9 @@ class Presenter {
 
   }
   updateAnswerButtons(currentTask) {
-    let solutionset = this.randomizeAnswers(currentTask.l);
+
+    let solutionset=currentTask;
+    solutionset = this.randomizeAnswers(solutionset.l);
     console.log(solutionset)
     for (let i = 0; i < solutionset.length; i++) {
       let button = document.getElementById('Antwort' + i);
@@ -207,7 +218,7 @@ class Presenter {
   }
 
   randomizeAnswers(currentSolutionSet) {
-    this.currRightAnswer = currentSolutionSet[0];
+  //  this.currRightAnswer = currentSolutionSet[0];
     console.log(this.currRightAnswer)
     for (let i = currentSolutionSet.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
@@ -309,8 +320,7 @@ class View {
     let modalcontent = document.getElementById("modal_text");
     modalcontent.innerText = "Fragen richtig:"+correct+"\n Fragen falsch:"+wrong;
     span.onclick = function () {
-      modal.style.display = "none";
-   
+      
       
       /* Reset Tasks when closed */
       let buttons = document.getElementById("selector").querySelectorAll(".topic");  
@@ -319,6 +329,7 @@ class View {
           p.updateTopic(buttons[i].value);
         }
       }
+      modal.style.display = "none";
     }
   }
 }

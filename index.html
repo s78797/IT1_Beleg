@@ -40,14 +40,17 @@
     <form class="topicform",id="topicform">
       <fieldset id='selector'>
 
- 
       </fieldset>
     </form>
 
 
 <div id="progressbars">
-  <progress id="correct_bar"></progress>
-  <progress id="wrong_bar"></progress>
+  <progress id="correct_bar"class="correct_bar"></progress>
+  <div ::-webkit-progress-bar>
+    <div ::-webkit-progress-value>
+    </div>
+    </div>
+  <progress id="wrong_bar" class="wrong_bar"></progress>
 </div>
 
 
